@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             Mobpro1Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "Muhammad Rizky Sendiko \n607062330084 \n47-03",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
