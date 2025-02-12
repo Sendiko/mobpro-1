@@ -48,6 +48,8 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun ScreenContent(modifier: Modifier = Modifier) {
+    var number by remember { mutableIntStateOf(0) }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -56,11 +58,11 @@ fun ScreenContent(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "0",
+            text = number.toString(),
             style = MaterialTheme.typography.displayLarge,
         )
         Button(
-            onClick = {  },
+            onClick = { number++ },
             modifier = Modifier
                 .padding(top = 16.dp)
                 .fillMaxWidth(0.5f),
