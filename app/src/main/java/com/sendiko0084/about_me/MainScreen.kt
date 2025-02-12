@@ -4,11 +4,17 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -50,25 +56,39 @@ fun MainScreen(modifier: Modifier = Modifier) {
 fun ScreenContent(modifier: Modifier = Modifier) {
     var number by remember { mutableIntStateOf(0) }
 
-    Column(
+    Row(
         modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp)
+            .fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
     ) {
+        IconButton(
+            onClick = { number-- },
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            )
+        ) {
+            Text(
+                text = "-",
+            )
+        }
         Text(
             text = number.toString(),
-            style = MaterialTheme.typography.displayLarge,
+            style = MaterialTheme.typography.displayLarge
         )
-        Button(
+        IconButton(
             onClick = { number++ },
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .fillMaxWidth(0.5f),
-            contentPadding = PaddingValues(16.dp)
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            )
         ) {
-            Text(text = stringResource(R.string.count))
+            Text(
+                text = "+",
+            )
         }
+        
     }
 }
