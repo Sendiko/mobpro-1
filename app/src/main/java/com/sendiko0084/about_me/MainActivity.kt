@@ -1,4 +1,4 @@
-package com.sendiko0084.mobpro1
+package com.sendiko0084.about_me
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.sendiko0084.mobpro1.ui.theme.Mobpro1Theme
+import com.sendiko0084.about_me.ui.theme.Mobpro1Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

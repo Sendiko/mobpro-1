@@ -1,4 +1,4 @@
-package com.sendiko0084.mobpro1.ui.theme
+package com.sendiko0084.about_me.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

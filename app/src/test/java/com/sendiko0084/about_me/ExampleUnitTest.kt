@@ -1,4 +1,4 @@
-package com.sendiko0084.mobpro1
+package com.sendiko0084.about_me
 
 import org.junit.Test
 

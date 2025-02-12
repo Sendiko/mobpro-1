@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.sendiko0084.mobpro1"
+    namespace = "com.sendiko0084.about_me"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.sendiko0084.mobpro1"
+        applicationId = "com.sendiko0084.about_me"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

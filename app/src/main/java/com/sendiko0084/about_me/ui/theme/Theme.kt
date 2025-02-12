@@ -1,6 +1,5 @@
-package com.sendiko0084.mobpro1.ui.theme
+package com.sendiko0084.about_me.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
