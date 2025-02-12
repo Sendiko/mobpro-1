@@ -64,7 +64,7 @@ fun ScreenContent(modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
     ) {
         IconButton(
-            onClick = { number-- },
+            onClick = { if (number >0) number-- },
             colors = IconButtonDefaults.iconButtonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary
