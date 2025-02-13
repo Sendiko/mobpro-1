@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Mobpro1Theme {
-                MainScreen()
+                MainScreen(hewan = data)
             }
         }
     }
