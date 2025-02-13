@@ -14,9 +14,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -89,6 +92,9 @@ fun ScreenContent(
     var bmi by remember { mutableFloatStateOf(0f) }
     var kategori by remember { mutableIntStateOf(0) }
 
+    var weightError by remember { mutableStateOf(false) }
+    var heightError by remember { mutableStateOf(false) }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -113,7 +119,12 @@ fun ScreenContent(
                 )
             },
             trailingIcon = {
-                Text("Kg")
+                IconPicker(isError = weightError, "Kg")
+            },
+            supportingText = {
+                ErrorHint(
+                    isError = weightError
+                )
             },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
@@ -133,7 +144,12 @@ fun ScreenContent(
                 )
             },
             trailingIcon = {
-                Text("cm")
+                IconPicker(isError = heightError, "cm")
+            },
+            supportingText = {
+                ErrorHint(
+                    isError = heightError
+                )
             },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
@@ -163,6 +179,10 @@ fun ScreenContent(
         }
         Button(
             onClick = {
+                weightError = (weight == "" || weight == "0")
+                heightError = (height == "" || height == "0")
+                if (weightError || heightError) return@Button
+
                 bmi = hitungBmi(weight.toFloat(), height.toFloat())
                 kategori = getCategory(bmi, selected == radioOptions[0])
             },
@@ -230,4 +250,30 @@ private fun getCategory(bmi: Float, isMale: Boolean): Int {
             else -> R.string.ideal
         }
     }
+}
+
+@Composable
+fun IconPicker(
+    isError: Boolean,
+    unit: String
+) {
+    if (isError) {
+        Icon(
+            imageVector = Icons.Filled.Warning,
+            contentDescription = null
+        )
+    } else {
+        Text(text = unit)
+    }
+}
+
+@Composable
+fun ErrorHint(
+    modifier: Modifier = Modifier,
+    isError: Boolean
+) {
+    if (isError)
+        Text(
+            text = stringResource(R.string.input_invalid)
+        )
 }
