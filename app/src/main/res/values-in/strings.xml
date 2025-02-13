@@ -15,4 +15,5 @@
     <string name="thin">Kurus</string>
     <string name="ideal">Ideal</string>
     <string name="thick">Gemuk</string>
+    <string name="input_invalid">Can\'t be empty.</string>
 </resources>

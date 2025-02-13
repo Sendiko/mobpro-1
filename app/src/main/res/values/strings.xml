@@ -14,4 +14,5 @@
     <string name="thin">Thin</string>
     <string name="ideal">Ideal</string>
     <string name="thick">Thick</string>
+    <string name="input_invalid">Tidak boleh kosong.</string>
 </resources>
