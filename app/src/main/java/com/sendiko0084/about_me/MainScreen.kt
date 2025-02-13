@@ -1,6 +1,7 @@
 package com.sendiko0084.about_me
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,14 +28,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sendiko0084.about_me.model.Hewan
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen(
+    modifier: Modifier = Modifier,
+    hewan: List<Hewan>
+) {
+    var index by remember { mutableIntStateOf(0) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -48,47 +57,49 @@ fun MainScreen(modifier: Modifier = Modifier) {
             )
         }
     ) { innerPadding ->
-        ScreenContent(Modifier.padding(innerPadding))
+        ScreenContent(
+            modifier = Modifier.padding(innerPadding),
+            hewan = hewan[index],
+            onClick = {
+                if (index < hewan.size - 1)
+                    index++
+            }
+        )
     }
 }
 
 @Composable
-fun ScreenContent(modifier: Modifier = Modifier) {
-    var number by remember { mutableIntStateOf(0) }
+fun ScreenContent(
+    modifier: Modifier = Modifier,
+    hewan: Hewan,
+    onClick: () -> Unit
+) {
 
-    Row(
+    Column(
         modifier = modifier
-            .padding(16.dp)
-            .fillMaxSize(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        IconButton(
-            onClick = { if (number >0) number-- },
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
-            )
-        ) {
-            Text(
-                text = "-",
-            )
-        }
-        Text(
-            text = number.toString(),
-            style = MaterialTheme.typography.displayLarge
+        Image(
+            painter = painterResource(hewan.imageResId),
+            contentDescription = hewan.nama,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.size(132.dp)
         )
-        IconButton(
-            onClick = { number++ },
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
-            )
+        Text(
+            text = hewan.nama,
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier.padding(top = 16.dp)
+        )
+        Button(
+            onClick = onClick,
+            modifier = Modifier.fillMaxWidth(0.5f).padding(top = 16.dp),
+            contentPadding = PaddingValues(16.dp)
         ) {
-            Text(
-                text = "+",
-            )
+            Text(text = stringResource(R.string.continue_))
         }
-        
     }
+
 }
