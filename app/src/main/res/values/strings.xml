@@ -4,4 +4,10 @@
     <string name="continue_">Continue</string>
     <string name="turn_on">Turn on</string>
     <string name="turn_off">Turn Off</string>
+    <string name="bmi_intro">"BMI, or Body Mass Indexing is a way to determine someone's body category. Try now!"</string>
+    <string name="weight">Body weight</string>
+    <string name="height">Body height</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="count_">Hitung</string>
 </resources>
