@@ -24,6 +24,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -40,9 +41,8 @@ import com.sendiko0084.about_me.model.Hewan
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-    hewan: List<Hewan>
 ) {
-    var index by remember { mutableIntStateOf(0) }
+    var isOn by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -59,10 +59,9 @@ fun MainScreen(
     ) { innerPadding ->
         ScreenContent(
             modifier = Modifier.padding(innerPadding),
-            hewan = hewan[index],
+            isOn = isOn,
             onClick = {
-                if (index < hewan.size - 1)
-                    index++
+                !isOn
             }
         )
     }
@@ -71,34 +70,31 @@ fun MainScreen(
 @Composable
 fun ScreenContent(
     modifier: Modifier = Modifier,
-    hewan: Hewan,
+    isOn: Boolean,
     onClick: () -> Unit
 ) {
-
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(hewan.imageResId),
-            contentDescription = hewan.nama,
+            painter = if (isOn) {
+                painterResource(R.drawable.light_on)
+            } else painterResource(R.drawable.light_off),
+            contentDescription = isOn.toString(),
             contentScale = ContentScale.Crop,
             modifier = Modifier.size(132.dp)
         )
-        Text(
-            text = hewan.nama,
-            style = MaterialTheme.typography.headlineLarge,
-            modifier = Modifier.padding(top = 16.dp)
-        )
         Button(
             onClick = onClick,
-            modifier = Modifier.fillMaxWidth(0.5f).padding(top = 16.dp),
-            contentPadding = PaddingValues(16.dp)
+            modifier = Modifier.fillMaxWidth(0.5f)
         ) {
-            Text(text = stringResource(R.string.continue_))
+            Text(
+                text = if (isOn) stringResource(R.string.turn_off) else stringResource(R.string.turn_on)
+            )
         }
     }
 
