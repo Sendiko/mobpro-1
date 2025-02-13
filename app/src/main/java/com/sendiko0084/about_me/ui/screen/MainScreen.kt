@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -27,6 +28,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -41,6 +44,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.sendiko0084.about_me.R
+import kotlinx.coroutines.flow.Flow
+import kotlin.math.pow
 import kotlin.math.sin
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -80,6 +85,10 @@ fun ScreenContent(
         stringResource(R.string.female)
     )
     var selected by remember { mutableStateOf(radioOptions[0]) }
+
+    var bmi by remember { mutableFloatStateOf(0f) }
+    var kategori by remember { mutableIntStateOf(0) }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -153,12 +162,28 @@ fun ScreenContent(
             }
         }
         Button(
-            onClick = { },
+            onClick = {
+                bmi = hitungBmi(weight.toFloat(), height.toFloat())
+                kategori = getCategory(bmi, selected == radioOptions[0])
+            },
             modifier = Modifier.padding(top = 8.dp),
             contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
         ) {
             Text(
                 text = stringResource(R.string.count_)
+            )
+        }
+        if (bmi != 0f) {
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+            Text(
+                text = stringResource(R.string.bmi_x, bmi),
+                style = MaterialTheme.typography.titleLarge
+            )
+            Text(
+                text = stringResource(kategori).uppercase(),
+                style = MaterialTheme.typography.headlineLarge
             )
         }
     }
@@ -184,5 +209,25 @@ fun GenderOption(
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(start = 8.dp)
         )
+    }
+}
+
+private fun hitungBmi(weight: Float, height: Float): Float {
+    return weight / (height/100).pow(2)
+}
+
+private fun getCategory(bmi: Float, isMale: Boolean): Int {
+    return if (isMale) {
+        when {
+            bmi < 20.5 -> R.string.thin
+            bmi >= 27.0 -> R.string.thick
+            else -> R.string.ideal
+        }
+    } else {
+        when {
+            bmi < 18.5 -> R.string.thin
+            bmi >= 25.0 -> R.string.thick
+            else -> R.string.ideal
+        }
     }
 }
