@@ -10,4 +10,8 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="count_">Hitung</string>
+    <string name="bmi_x">BMI: %1$.2f</string>
+    <string name="thin">Thin</string>
+    <string name="ideal">Ideal</string>
+    <string name="thick">Thick</string>
 </resources>

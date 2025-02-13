@@ -11,4 +11,8 @@
     <string name="male">Pria</string>
     <string name="female">Wanita</string>
     <string name="count_">Count</string>
+    <string name="bmi_x">BMI: %1$.2f</string>
+    <string name="thin">Kurus</string>
+    <string name="ideal">Ideal</string>
+    <string name="thick">Gemuk</string>
 </resources>
