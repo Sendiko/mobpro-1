@@ -2,4 +2,6 @@
     <string name="app_name">Mobpro 1</string>
     <string name="count">Count +1</string>
     <string name="continue_">Continue</string>
+    <string name="turn_on">Turn on</string>
+    <string name="turn_off">Turn Off</string>
 </resources>
