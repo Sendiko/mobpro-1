@@ -1,7 +1,6 @@
 package com.sendiko0084.about_me.ui.screen
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -29,8 +27,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -39,17 +35,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.sendiko0084.about_me.R
-import kotlinx.coroutines.flow.Flow
 import kotlin.math.pow
-import kotlin.math.sin
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,19 +73,14 @@ fun MainScreen(
 fun ScreenContent(
     modifier: Modifier = Modifier,
 ) {
-    var weight by remember { mutableStateOf("") }
-    var height by remember { mutableStateOf("") }
-    val radioOptions = listOf(
-        stringResource(R.string.male),
-        stringResource(R.string.female)
-    )
-    var selected by remember { mutableStateOf(radioOptions[0]) }
+    var width by remember { mutableStateOf("") }
+    var length by remember { mutableStateOf("") }
 
     var bmi by remember { mutableFloatStateOf(0f) }
     var kategori by remember { mutableIntStateOf(0) }
 
-    var weightError by remember { mutableStateOf(false) }
-    var heightError by remember { mutableStateOf(false) }
+    var widthError by remember { mutableStateOf(false) }
+    var lengthError by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
@@ -103,27 +90,27 @@ fun ScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(R.string.bmi_intro),
+            text = "stringResource(R.string.bmi_intro)",
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.fillMaxWidth()
         )
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = weight,
+            value = width,
             onValueChange = {
-                weight = it
+                width = it
             },
             label = {
                 Text(
-                    text = stringResource(R.string.weight),
+                    text = stringResource(R.string.width),
                 )
             },
             trailingIcon = {
-                IconPicker(isError = weightError, "Kg")
+                IconPicker(isError = widthError, "Kg")
             },
             supportingText = {
                 ErrorHint(
-                    isError = weightError
+                    isError = widthError
                 )
             },
             singleLine = true,
@@ -134,21 +121,21 @@ fun ScreenContent(
         )
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = height,
+            value = length,
             onValueChange = {
-                height = it
+                length = it
             },
             label = {
                 Text(
-                    text = stringResource(R.string.height),
+                    text = stringResource(R.string.length),
                 )
             },
             trailingIcon = {
-                IconPicker(isError = heightError, "cm")
+                IconPicker(isError = lengthError, "cm")
             },
             supportingText = {
                 ErrorHint(
-                    isError = heightError
+                    isError = lengthError
                 )
             },
             singleLine = true,
@@ -157,34 +144,11 @@ fun ScreenContent(
                 imeAction = ImeAction.Done
             )
         )
-        Row(
-            modifier = Modifier
-                .padding(top = 6.dp)
-                .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
-        ) {
-            radioOptions.forEach {
-                GenderOption(
-                    isSelected = selected == it,
-                    label = it,
-                    modifier = Modifier
-                        .selectable(
-                            selected = selected == it,
-                            onClick = { selected = it },
-                            role = Role.RadioButton
-                        )
-                        .weight(1f)
-                        .padding(16.dp)
-                )
-            }
-        }
         Button(
             onClick = {
-                weightError = (weight == "" || weight == "0")
-                heightError = (height == "" || height == "0")
-                if (weightError || heightError) return@Button
-
-                bmi = hitungBmi(weight.toFloat(), height.toFloat())
-                kategori = getCategory(bmi, selected == radioOptions[0])
+                widthError = (width == "" || width == "0")
+                lengthError = (length == "" || length == "0")
+                if (widthError || lengthError) return@Button
             },
             modifier = Modifier.padding(top = 8.dp),
             contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
@@ -198,7 +162,7 @@ fun ScreenContent(
                 modifier = Modifier.padding(vertical = 8.dp)
             )
             Text(
-                text = stringResource(R.string.bmi_x, bmi),
+                text = "",
                 style = MaterialTheme.typography.titleLarge
             )
             Text(
@@ -229,26 +193,6 @@ fun GenderOption(
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(start = 8.dp)
         )
-    }
-}
-
-private fun hitungBmi(weight: Float, height: Float): Float {
-    return weight / (height/100).pow(2)
-}
-
-private fun getCategory(bmi: Float, isMale: Boolean): Int {
-    return if (isMale) {
-        when {
-            bmi < 20.5 -> R.string.thin
-            bmi >= 27.0 -> R.string.thick
-            else -> R.string.ideal
-        }
-    } else {
-        when {
-            bmi < 18.5 -> R.string.thin
-            bmi >= 25.0 -> R.string.thick
-            else -> R.string.ideal
-        }
     }
 }
 

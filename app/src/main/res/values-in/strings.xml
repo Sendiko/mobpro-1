@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mobpro 1</string>
-    <string name="count">Hitung +1</string>
-    <string name="continue_">Lanjut </string>
-    <string name="turn_on">Nyalakan</string>"
-    <string name="turn_off">Matikan</string>
-    <string name="bmi_intro">BMI, atau Body Mass Indexing merupakan cara untuk menentukan apakah berat badanmu ideal atau tidak. Cobalah sekarang!</string>
-    <string name="weight">Berat Badan</string>
-    <string name="height">TInggi Badan</string>
-    <string name="male">Pria</string>
-    <string name="female">Wanita</string>
+    <string name="width">Lebar</string>
+    <string name="length">Panjang</string>
     <string name="count_">Count</string>
-    <string name="bmi_x">BMI: %1$.2f</string>
-    <string name="thin">Kurus</string>
-    <string name="ideal">Ideal</string>
-    <string name="thick">Gemuk</string>
     <string name="input_invalid">Can\'t be empty.</string>
 </resources>

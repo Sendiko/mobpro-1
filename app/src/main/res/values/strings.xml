@@ -1,18 +1,7 @@
 <resources>
     <string name="app_name">Mobpro 1</string>
-    <string name="count">Count +1</string>
-    <string name="continue_">Continue</string>
-    <string name="turn_on">Turn on</string>
-    <string name="turn_off">Turn Off</string>
-    <string name="bmi_intro">"BMI, or Body Mass Indexing is a way to determine someone's body category. Try now!"</string>
-    <string name="weight">Body weight</string>
-    <string name="height">Body height</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
+    <string name="width">Width</string>
+    <string name="length">Length</string>
     <string name="count_">Hitung</string>
-    <string name="bmi_x">BMI: %1$.2f</string>
-    <string name="thin">Thin</string>
-    <string name="ideal">Ideal</string>
-    <string name="thick">Thick</string>
-    <string name="input_invalid">Tidak boleh kosong.</string>
+    <string name="input_invalid">"Can't be empty."</string>
 </resources>
