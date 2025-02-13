@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.sendiko0084.about_me.model.Hewan
+import com.sendiko0084.about_me.ui.screen.MainScreen
 import com.sendiko0084.about_me.ui.theme.Mobpro1Theme
 
 class MainActivity : ComponentActivity() {
